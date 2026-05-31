@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import ExerciseCollection from '../components/RenameCollection';
+import ExerciseCollection from '../components/ExerciseCollection';
 import { useState} from 'react';
 
 function HomePage() {
