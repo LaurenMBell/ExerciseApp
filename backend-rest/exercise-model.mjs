@@ -19,7 +19,7 @@ async function connect() {
 }
 
 // exercise schema
-const exerciseSchema = new.mongoose.Schema({
+const exerciseSchema = new mongoose.Schema({
     name: {type: String, required: true},
     reps: {type: Number, required: true},
     weight: {type: Number, required: true},

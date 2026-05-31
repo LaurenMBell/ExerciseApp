@@ -1,7 +1,7 @@
 import 'dotenv/config';
-import * as exercisesModel from './exercise-model.mjs';
-
+import * as exercises from './exercise-model.mjs';
 import express from 'express';
+import asyncHandler from 'express-async-handler';
 
 const PORT = process.env.PORT;
 
@@ -11,20 +11,22 @@ const app = express();
 
 app.use(express.json());
 
-app.listen(PORT, ()=>{
+app.listen(PORT, async()=>{
+    await exercises.connect();
     console.log(`Server listening on port: ${PORT}`)
 })
 
 /**
- * Create a new exercise
+ * POST
  */
-app.post('/exercises', (req, res) => {
-    const exercise = exercisesModel.createExercise(req.body.name,req.body.reps,req.body.weight,req.body.unit,req.body.date, req.body._id);
+app.post('/exercises', asyncHandler(async (req, res) => {
+    const { name, reps, weight, unit, date, _id } = req.body;
+    const exercise = await exercises.createExercise(req.body.name,req.body.reps,req.body.weight,req.body.unit,req.body.date, req.body._id);
         res.status(201).json(exercise)
-});
+}));
 
 /**
- * Retrieve all exercises
+ * GET all exercizes 
  */
 app.get('/exercises', (req, res) => {
     const exercises = exercisesModel.findExercise();
