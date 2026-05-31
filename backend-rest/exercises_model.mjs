@@ -2,13 +2,16 @@ import movies from './data/movies.mjs';
 import Movie from './movie.mjs';
 
 /**
- * Create a movie
- * @param {String} title 
- * @param {Number} year 
- * @param {String} language 
+ * Create an exercize
+ * @param {string} name
+ * @param {Number} reps
+ * @param {Number} weight
+ * @param {String} unit
+ * @param {Date} date
+ * @param {Object} _id
  * @returns
  */
-const createMovie = (title, year, language) => {
+const createExersize = (title, year, language) => {
     const movie = new Movie(title, year, language);
     movies.push(movie)
     return movie;
