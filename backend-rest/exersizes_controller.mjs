@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import * as moviesModel from './exersizes_model.mjs';
+import * as exersizesModel from './exersizes_model.mjs';
 import express from 'express';
 
 const PORT = process.env.PORT;
@@ -15,53 +15,55 @@ app.listen(PORT, ()=>{
 })
 
 /**
- * Create a new movie with the title, year and language provided in the body.
+ * Create a new exersize
  */
-app.post('/movies', (req, res) => {
-    const movie = moviesModel.createMovie(req.body.title, req.body.year, req.body.language);
-        res.status(201).json(movie)
+app.post('/exercizes', (req, res) => {
+    const exercize = exersizesModel.createExersize(req.body.name,req.body.reps,req.body.weight,req.body.unit,req.body.date, req.body._id);
+        res.status(201).json(exercize)
 });
 
 /**
- * Retrieve all movies. 
+ * Retrieve all exersizes
  */
-app.get('/movies', (req, res) => {
-    const movies = moviesModel.findMovies();
-    res.json(movies);
+app.get('/exercizes', (req, res) => {
+    const exercizes = exercizesModel.findExercize();
+    res.json(exercizes);
 });
 
 
 /**
- * Retrieve the movie corresponding to the ID provided in the URL.
+ * Retrieve the exersizes corresponding to the ID provided in the URL.
  */
-app.get('/movies/:movie_id', (req, res) => {
-    const movie = moviesModel.findMovieById(req.params.movie_id);
-    if (movie !== null) {
-        res.json(movie);
+app.get('/exercizes/:exercize_id', (req, res) => {
+    const exercize = exersizesModel.findExercizeById(req.params._id);
+    if (exercize !== null) {
+        res.json(exercize);
     } else {
         res.status(404).json(ERROR_NOT_FOUND);
     }
 });
 
 /**
- * Update the movie whose id is provided in the path parameter and set
- * its title, year and language to the values provided in the body.
+ * Update the exercize whose id is provided in the path parameter and set
+ * its (parameters) to the values provided in the body.
  */
-app.put('/movies/:movie_id', (req, res) => {
-    const numUpdated = moviesModel.replaceMovie(
-                req.params.movie_id, req.body.title, req.body.year, req.body.language)
+app.put('/exercizes/:exercize_id', (req, res) => {
+    const numUpdated = exercizesModel.replaceExercize(
+                req.body.name,req.body.reps,req.body.weight,req.body.unit,req.body.date, req.body._id)
     if (numUpdated === 1) {
-        res.json({ _id: req.params.movie_id, title: req.body.title, year: req.body.year, language: req.body.language })
+        res.json({ _id: req.params.exercize_id, reps: req.body.reps, weight: req.body.weight, unit: req.body.unit, 
+            date: req.body.date
+         })
     } else {
         res.status(404).json(ERROR_NOT_FOUND);
     }
 });
 
 /**
- * Delete the movie whose id is provided in the query parameters
+ * Delete the exercize whose id is provided in the query parameters
  */
-app.delete('/movies/:movie_id', (req, res) => {
-    const deletedCount = moviesModel.deleteById(req.params.movie_id);
+app.delete('/exercizes/:exercize_id', (req, res) => {
+    const deletedCount = exercizesModel.deleteById(req.params.exercize_id);
     if (deletedCount === 1) {
         res.status(204).send();
     } else {
