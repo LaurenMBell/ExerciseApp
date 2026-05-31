@@ -39,7 +39,7 @@ const Exercise = mongoose.model('Exercise', exerciseSchema, 'exercises');
  * @param {Object} _id
  * @returns
  */
-const createExercise = (name, reps, weight, unit, date, _id) => {
+async function createExercise(name, reps, weight, unit, date, _id) => {
     const exercise = new Exercise(name, reps, weight, unit, date, _id);
     return exercise.save();
 }
@@ -48,7 +48,7 @@ const createExercise = (name, reps, weight, unit, date, _id) => {
  * Retrieve all exercises
  * @returns 
  */
-const findExercises = () => {
+async function findExercises() {
     return exercises;
 }
 
@@ -57,7 +57,7 @@ const findExercises = () => {
  * @param {Object} exercise_id
  * @returns 
  */
-const findExerciseById = (exercise_id) => {
+async function findExerciseById(exercise_id){
     return Exercise.findById(exercise_id);
 }
 
@@ -71,7 +71,7 @@ const findExerciseById = (exercise_id) => {
  * @param {Object} _id
  * @returns Number of documents modified
  */
-const replaceExercise = (name, reps, weight, unit, date, _id) => {
+async function replaceExercise(name, reps, weight, unit, date, _id) {
     return Exercise.findByIDAndDelete(_id,name, reps, weight, unit, date, {new : true});
 }
 
@@ -80,7 +80,7 @@ const replaceExercise = (name, reps, weight, unit, date, _id) => {
  * @param {String} _id 
  * @returns Count of deleted documents
  */
-const deleteById = (_id) => {
+async function deleteById(_id){
     return Exercise.findByIDAndDelete(_id)
 }
 
