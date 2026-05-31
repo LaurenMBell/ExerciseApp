@@ -12,8 +12,8 @@ import Exercise from './exercise.mjs';
  * @param {Object} _id
  * @returns
  */
-const createExercise = (title, year, language) => {
-    const exercise = new Exercise(title, year, language);
+const createExercise = (name, reps, weight, unit, date, _id) => {
+    const exercise = new Exercise(name, reps, weight, unit, date, _id);
     exercises.push(exercise)
     return exercise;
 }
@@ -37,22 +37,27 @@ const findExerciseById = (exercise_id) => {
 }
 
 /**
- * Replace the title, year, language properties of the exercise with the id value provided
- * @param {String} _id 
- * @param {String} title 
- * @param {Number} year 
- * @param {String} language 
+ * Replace the properties of the exercise with the id value provided
+ * @param {string} name
+ * @param {Number} reps
+ * @param {Number} weight
+ * @param {String} unit
+ * @param {Date} date
+ * @param {Object} _id
  * @returns Number of documents modified
  */
-const replaceExercise = (_id, title, year, language) => {
+const replaceExercise = (name, reps, weight, unit, date, _id) => {
     const result = exercises.filter( (exercise) => _id === exercise._id)
     if(result.length === 0) {
         return 0;
     } else{
         const exercise = result[0];
-        exercise.title = title;
-        exercise.year = year;
-        exercise.language = language;
+        exercise.name = name;
+        exercise.reps = reps;
+        exercise.weight = weight;
+        exercise.unit = unit;
+        exercise.date = date;
+        exercise._id = _id;
         return 1;
     }
 }
