@@ -1,6 +1,5 @@
 'use strict'
-import exercises from './data/exercises.mjs';
-import Exercise from './exercise.mjs';
+import exercises from './exercises.mjs';
 import mongoose from 'mongoose';
 import 'dotenv/config';
 
@@ -28,7 +27,7 @@ const exerciseSchema = new mongoose.Schema({
     _id: {type: Object, required: true}
 });
 
-const Exercise = mongoose.model('Exercise', exerciseSchema, 'exercises');
+const exerciseModel = mongoose.model('Exercise', exerciseSchema, 'exercises');
 
 /**
  * Create an exercize 
@@ -59,7 +58,7 @@ async function findExercises() {
  * @returns 
  */
 async function findExerciseById(exercise_id){
-    return Exercise.findById(exercise_id);
+    return exerciseModel.findById(exercise_id);
 }
 
 /**
@@ -73,7 +72,7 @@ async function findExerciseById(exercise_id){
  * @returns Number of documents modified
  */
 async function replaceExercise(name, reps, weight, unit, date, _id) {
-    return Exercise.findByIDAndDelete(_id,name, reps, weight, unit, date, {new : true});
+    return exerciseModel.findByIDAndDelete(_id,name, reps, weight, unit, date, {new : true});
 }
 
 /**
@@ -82,7 +81,7 @@ async function replaceExercise(name, reps, weight, unit, date, _id) {
  * @returns Count of deleted documents
  */
 async function deleteById(_id){
-    return Exercise.findByIDAndDelete(_id)
+    return exerciseModel.findByIDAndDelete(_id)
 }
 
-export { createExercise, findExercises, findExerciseById, replaceExercise, deleteById };
+export { connect, createExercise, findExercises, findExerciseById, replaceExercise, deleteById };

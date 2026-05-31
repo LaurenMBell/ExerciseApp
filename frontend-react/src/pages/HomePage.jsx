@@ -1,15 +1,15 @@
 import { Link } from 'react-router-dom';
-import MovieCollection from '../components/MovieCollection';
+import ExerciseCollection from '../components/RenameCollection';
 import { useState} from 'react';
 
 function HomePage() {
-    const [movies, setMovies] = useState([]);
+    const [Exercises, setExercises] = useState([]);
 
     return (
         <>
-            <h2>List of Movies</h2>
-            <MovieCollection movies={movies}></MovieCollection>
-            <Link to="/add-movie">Add a movie</Link>
+            <h2>List of Exercises</h2>
+            <ExerciseCollection Exercises={Exercises}></ExerciseCollection>
+            <Link to="/add-exercise">Add a Exercise</Link>
         </>
     );
 }

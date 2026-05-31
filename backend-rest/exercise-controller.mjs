@@ -42,20 +42,20 @@ app.get('/exercises', asyncHandler(async(req, res) => {
 /**
  * GET the exercises corresponding to the ID provided in the URL.
  */
-app.get('/exercises/:exercise_id', (req, res) => {
+app.get('/exercises/:exercise_id', asyncHandler(async(req, res) => {
     const exercise = await exercisesModel.findexerciseById(req.params._id);
     if (exercise !== null) {
         res.json(exercise);
     } else {
         res.status(404).json(ERROR_NOT_FOUND);
     }
-});
+}));
 
 /**
  * PUT the exercise whose id is provided in the path parameter and set
  * its (parameters) to the values provided in the body.
  */
-app.put('/exercises/:exercise_id', (req, res) => {
+app.put('/exercises/:exercise_id', asyncHandler(async(req, res) => {
     const numUpdated = await exercisesModel.replaceExercise(
                 req.body.name,req.body.reps,req.body.weight,req.body.unit,req.body.date, req.body._id)
     if (numUpdated === 1) {
@@ -65,18 +65,18 @@ app.put('/exercises/:exercise_id', (req, res) => {
     } else {
         res.status(404).json(ERROR_NOT_FOUND);
     }
-});
+}));
 
 /**
  * DELETE the exercise whose id is provided in the query parameters
  */
-app.delete('/exercises/:exercise_id', (req, res) => {
+app.delete('/exercises/:exercise_id', asyncHandler(async(req, res) => {
     const deletedCount = await exercisesModel.deleteById(req.params._id);
     if (deletedCount === 1) {
         res.status(204).send();
     } else {
         res.status(404).json(ERROR_NOT_FOUND);
     }
-});
+}));
 
 

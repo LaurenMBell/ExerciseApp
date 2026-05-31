@@ -1,8 +1,8 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
-import AddMoviePage from './pages/AddMoviePage';
-import EditMoviePage from './pages/EditMoviePage';
+import AddExercisePage from './pages/AddExercisePage';
+import EditExercisePage from './pages/EditExercisePage';
 
 function App() {
 
@@ -11,8 +11,8 @@ function App() {
         <Router>
           <Routes>
             <Route path="/" element={<HomePage/>}></Route>
-            <Route path="/add-movie" element={ <AddMoviePage />}></Route>
-            <Route path="/edit-movie" element={ <EditMoviePage />}></Route>
+            <Route path="/add-exercise" element={ <AddExercisePage />}></Route>
+            <Route path="/edit-exercise" element={ <EditExercisePage />}></Route>
           </Routes>
         </Router>
     </div>

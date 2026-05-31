@@ -1,6 +1,6 @@
 import '../App.css';
 
-function MovieItem({ movie}) {
+function ExerciseItem({ movie}) {
     return (
         <div className="collection-item">
             <h3>{movie.title}</h3>
@@ -13,4 +13,4 @@ function MovieItem({ movie}) {
     );
 }
 
-export default MovieItem;
+export default ExerciseItem;
