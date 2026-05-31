@@ -28,10 +28,15 @@ app.post('/exercises', asyncHandler(async (req, res) => {
 /**
  * GET all exercizes 
  */
-app.get('/exercises', (req, res) => {
-    const exercises = exercisesModel.findExercise();
-    res.json(exercises);
-});
+app.get('/exercises', asyncHandler(async(req, res) => {
+    const filter = {};
+    if (req.query.name) filter.name = req.query.name;
+    if (req.query.reps) filter.reps = req.query.reps;
+    if (req.query.weight) filter.weight = req.query.weight;
+    if (req.query.unit) filter.unit = req.query.unit;
+    const result = await exercises.findExercise(filter);
+    res.status(200).json(exercises);
+}));
 
 
 /**
