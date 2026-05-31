@@ -30,7 +30,7 @@ const exerciseSchema = new.mongoose.Schema({
 const Exercise = mongoose.model('Exercise', exerciseSchema, 'exercises');
 
 /**
- * Create an exercize
+ * Create an exercize 
  * @param {string} name
  * @param {Number} reps
  * @param {Number} weight
@@ -58,8 +58,7 @@ const findExercises = () => {
  * @returns 
  */
 const findExerciseById = (exercise_id) => {
-    const result = exercises.filter( (exercise) => exercise_id === exercise._id)
-    return result.length === 0 ? null : result[0]
+    return Exercise.findById(exercise_id);
 }
 
 /**
