@@ -1,6 +1,33 @@
 import exercises from './data/exercises.mjs';
 import Exercise from './exercise.mjs';
+import mongoose from 'mongoose';
+import 'dotenv/config';
 
+let connection = undefined;
+
+//function from assignment 7 that connects to MongoDB server 
+async function connect() {
+    try{
+        await mongoose.connect(process.env.MONGODB_CONNECT_STRING);
+        connection = mongoose.connection;
+        console.log("Successfully connected to MongoDB using Mongoose!");
+    } catch (err) {
+        console.log(err);
+        throw Error('Couldnt connect to MongoDB ${err.message}')
+    }
+}
+
+// exercise schema
+const exerciseSchema = new.mongoose.Schema({
+    name: {type: String, required: true},
+    reps: {type: Number, required: true},
+    weight: {type: Number, required: true},
+    unit: {type: String, required: true},
+    date: {type: Date, required: true},
+    _id: {type: Object, required: true}
+});
+
+const Exercise = mongoose.model('Exercise', exerciseSchema, 'exercises');
 
 /**
  * Create an exercize
@@ -14,8 +41,7 @@ import Exercise from './exercise.mjs';
  */
 const createExercise = (name, reps, weight, unit, date, _id) => {
     const exercise = new Exercise(name, reps, weight, unit, date, _id);
-    exercises.push(exercise)
-    return exercise;
+    return exercise.save();
 }
 
 /**
