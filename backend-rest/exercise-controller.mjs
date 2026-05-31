@@ -56,7 +56,7 @@ app.get('/exercises/:exercise_id', (req, res) => {
  * its (parameters) to the values provided in the body.
  */
 app.put('/exercises/:exercise_id', (req, res) => {
-    const numUpdated = exercisesModel.replaceExercise(
+    const numUpdated = await exercisesModel.replaceExercise(
                 req.body.name,req.body.reps,req.body.weight,req.body.unit,req.body.date, req.body._id)
     if (numUpdated === 1) {
         res.json({ _id: req.params.exercise_id, reps: req.body.reps, weight: req.body.weight, unit: req.body.unit, 
@@ -71,7 +71,7 @@ app.put('/exercises/:exercise_id', (req, res) => {
  * Delete the exercise whose id is provided in the query parameters
  */
 app.delete('/exercises/:exercise_id', (req, res) => {
-    const deletedCount = exercisesModel.deleteById(req.params._id);
+    const deletedCount = await exercisesModel.deleteById(req.params._id);
     if (deletedCount === 1) {
         res.status(204).send();
     } else {
