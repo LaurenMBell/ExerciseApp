@@ -87,20 +87,13 @@ const replaceExercise = (name, reps, weight, unit, date, _id) => {
     }
 }
 
-
 /**
  * Delete the exercise with provided id value
  * @param {String} _id 
  * @returns Count of deleted documents
  */
 const deleteById = (_id) => {
-    for(let i = 0; i < exercises.length; i++){
-        if(exercises[i]._id === _id){
-            exercises.splice(i, 1)
-            return 1;
-        }
-    }
-    return 0;
+    return Exercise.findByIDAndDelete(_id)
 }
 
 export { createExercise, findExercises, findExerciseById, replaceExercise, deleteById };
