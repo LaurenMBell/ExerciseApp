@@ -72,19 +72,7 @@ const findExerciseById = (exercise_id) => {
  * @returns Number of documents modified
  */
 const replaceExercise = (name, reps, weight, unit, date, _id) => {
-    const result = exercises.filter( (exercise) => _id === exercise._id)
-    if(result.length === 0) {
-        return 0;
-    } else{
-        const exercise = result[0];
-        exercise.name = name;
-        exercise.reps = reps;
-        exercise.weight = weight;
-        exercise.unit = unit;
-        exercise.date = date;
-        exercise._id = _id;
-        return 1;
-    }
+    return Exercise.findByIDAndDelete(_id,name, reps, weight, unit, date, {new : true});
 }
 
 /**
