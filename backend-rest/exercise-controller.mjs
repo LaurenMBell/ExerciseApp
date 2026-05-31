@@ -1,5 +1,6 @@
 import 'dotenv/config';
-import * as exercisesModel from './exercises_model.mjs';
+import * as exercisesModel from './exercise-model.mjs';
+
 import express from 'express';
 
 const PORT = process.env.PORT;

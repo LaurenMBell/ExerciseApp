@@ -1,7 +1,10 @@
+'use strict'
+
 import exercises from './data/exercises.mjs';
 import Exercise from './exercise.mjs';
 import mongoose from 'mongoose';
 import 'dotenv/config';
+
 
 let connection = undefined;
 
@@ -39,7 +42,7 @@ const Exercise = mongoose.model('Exercise', exerciseSchema, 'exercises');
  * @param {Object} _id
  * @returns
  */
-async function createExercise(name, reps, weight, unit, date, _id) => {
+async function createExercise(name, reps, weight, unit, date, _id){
     const exercise = new Exercise(name, reps, weight, unit, date, _id);
     return exercise.save();
 }
@@ -49,7 +52,13 @@ async function createExercise(name, reps, weight, unit, date, _id) => {
  * @returns 
  */
 async function findExercises() {
-    return exercises;
+    try {
+        const response = await fetch(connection);
+        const data = await response.text();
+        addData(data);
+    } catch (err) {
+        console.error(err)
+    }
 }
 
 /**
