@@ -1,6 +1,6 @@
 import { uid } from 'uid';
 
-export default class Exersize {
+export default class Exercise {
     /**
      * 
      * @param {string} name

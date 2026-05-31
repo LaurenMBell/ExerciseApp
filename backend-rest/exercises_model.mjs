@@ -1,5 +1,6 @@
-import movies from './data/movies.mjs';
-import Movie from './movie.mjs';
+import exercises from './data/exercises.mjs';
+import Exercise from './exercise.mjs';
+
 
 /**
  * Create an exercize
@@ -11,65 +12,65 @@ import Movie from './movie.mjs';
  * @param {Object} _id
  * @returns
  */
-const createExersize = (title, year, language) => {
-    const movie = new Movie(title, year, language);
-    movies.push(movie)
-    return movie;
+const createExercise = (title, year, language) => {
+    const exercise = new Exercise(title, year, language);
+    exercises.push(exercise)
+    return exercise;
 }
 
 /**
- * Retrieve all movies
+ * Retrieve all exercises
  * @returns 
  */
-const findMovies = () => {
-    return movies;
+const findExercises = () => {
+    return exercises;
 }
 
 /**
- * Retrieve movies based on the ID
- * @param {Object} movie_id
+ * Retrieve exercises based on the ID
+ * @param {Object} exercise_id
  * @returns 
  */
-const findMovieById = (movie_id) => {
-    const result = movies.filter( (movie) => movie_id === movie._id)
+const findExerciseById = (exercise_id) => {
+    const result = exercises.filter( (exercise) => exercise_id === exercise._id)
     return result.length === 0 ? null : result[0]
 }
 
 /**
- * Replace the title, year, language properties of the movie with the id value provided
+ * Replace the title, year, language properties of the exercise with the id value provided
  * @param {String} _id 
  * @param {String} title 
  * @param {Number} year 
  * @param {String} language 
  * @returns Number of documents modified
  */
-const replaceMovie = (_id, title, year, language) => {
-    const result = movies.filter( (movie) => _id === movie._id)
+const replaceExercise = (_id, title, year, language) => {
+    const result = exercises.filter( (exercise) => _id === exercise._id)
     if(result.length === 0) {
         return 0;
     } else{
-        const movie = result[0];
-        movie.title = title;
-        movie.year = year;
-        movie.language = language;
+        const exercise = result[0];
+        exercise.title = title;
+        exercise.year = year;
+        exercise.language = language;
         return 1;
     }
 }
 
 
 /**
- * Delete the movie with provided id value
+ * Delete the exercise with provided id value
  * @param {String} _id 
  * @returns Count of deleted documents
  */
 const deleteById = (_id) => {
-    for(let i = 0; i < movies.length; i++){
-        if(movies[i]._id === _id){
-            movies.splice(i, 1)
+    for(let i = 0; i < exercises.length; i++){
+        if(exercises[i]._id === _id){
+            exercises.splice(i, 1)
             return 1;
         }
     }
     return 0;
 }
 
-export { createMovie, findMovies, findMovieById, replaceMovie, deleteById };
+export { createExercise, findExercises, findExerciseById, replaceExercise, deleteById };
