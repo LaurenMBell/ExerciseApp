@@ -68,7 +68,7 @@ app.put('/exercises/:exercise_id', (req, res) => {
 });
 
 /**
- * Delete the exercise whose id is provided in the query parameters
+ * DELETE the exercise whose id is provided in the query parameters
  */
 app.delete('/exercises/:exercise_id', (req, res) => {
     const deletedCount = await exercisesModel.deleteById(req.params._id);
