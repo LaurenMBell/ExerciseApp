@@ -1,10 +1,8 @@
 'use strict'
-
 import exercises from './data/exercises.mjs';
 import Exercise from './exercise.mjs';
 import mongoose from 'mongoose';
 import 'dotenv/config';
-
 
 let connection = undefined;
 
@@ -52,13 +50,7 @@ async function createExercise(name, reps, weight, unit, date, _id){
  * @returns 
  */
 async function findExercises() {
-    try {
-        const response = await fetch(connection);
-        const data = await response.text();
-        addData(data);
-    } catch (err) {
-        console.error(err)
-    }
+    return exercises;
 }
 
 /**
