@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/movies': {
+      '/exercises': {
       target: 'http://localhost:3000'
       } 
     }
