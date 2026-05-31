@@ -30,20 +30,20 @@ app.post('/exercises', asyncHandler(async (req, res) => {
  */
 app.get('/exercises', asyncHandler(async(req, res) => {
     const filter = {};
-    if (req.query.name) filter.name = req.query.name;
-    if (req.query.reps) filter.reps = req.query.reps;
-    if (req.query.weight) filter.weight = req.query.weight;
-    if (req.query.unit) filter.unit = req.query.unit;
+    filter.name = req.query.name;
+    filter.reps = req.query.reps;
+    filter.weight = req.query.weight;
+    filter.unit = req.query.unit;
+    filter._id = req.query._id;
     const result = await exercises.findExercise(filter);
     res.status(200).json(exercises);
 }));
 
-
 /**
- * Retrieve the exercises corresponding to the ID provided in the URL.
+ * GET the exercises corresponding to the ID provided in the URL.
  */
 app.get('/exercises/:exercise_id', (req, res) => {
-    const exercise = exercisesModel.findexerciseById(req.params._id);
+    const exercise = await exercisesModel.findexerciseById(req.params._id);
     if (exercise !== null) {
         res.json(exercise);
     } else {
@@ -52,7 +52,7 @@ app.get('/exercises/:exercise_id', (req, res) => {
 });
 
 /**
- * Update the exercise whose id is provided in the path parameter and set
+ * PUT the exercise whose id is provided in the path parameter and set
  * its (parameters) to the values provided in the body.
  */
 app.put('/exercises/:exercise_id', (req, res) => {
