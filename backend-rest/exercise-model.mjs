@@ -40,7 +40,9 @@ const exerciseModel = mongoose.model('Exercise', exerciseSchema, 'exercises');
  * @returns
  */
 async function createExercise(name, reps, weight, unit, date, _id){
-    const exercise = new Exercise(name, reps, weight, unit, date, _id);
+    if(name !== "" && reps >= 0 && weight >= 0 && unit === "kgs"||"lbs"||"miles"){
+        const exercise = new Exercise(name, reps, weight, unit, date, _id);
+    }
     return exercise.save();
 }
 
@@ -72,7 +74,7 @@ async function findExerciseById(exercise_id){
  * @returns Number of documents modified
  */
 async function replaceExercise(name, reps, weight, unit, date, _id) {
-    return exerciseModel.findByIDAndDelete(_id,name, reps, weight, unit, date, {new : true});
+    return exerciseModel.findByIDAndUpdate(_id,name, reps, weight, unit, date, {new : true});
 }
 
 /**
@@ -81,7 +83,7 @@ async function replaceExercise(name, reps, weight, unit, date, _id) {
  * @returns Count of deleted documents
  */
 async function deleteById(_id){
-    return exerciseModel.findByIDAndDelete(_id)
+    return exerciseModel.findByIdAndDelete(_id)
 }
 
 export { connect, createExercise, findExercises, findExerciseById, replaceExercise, deleteById };

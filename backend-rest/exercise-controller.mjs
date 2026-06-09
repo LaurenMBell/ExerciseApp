@@ -36,7 +36,7 @@ app.get('/exercises', asyncHandler(async(req, res) => {
     filter.unit = req.query.unit;
     filter._id = req.query._id;
     const result = await exercises.findExercise(filter);
-    res.status(200).json(exercises);
+    res.status(200).json(result);
 }));
 
 /**

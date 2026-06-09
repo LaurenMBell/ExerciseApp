@@ -1,9 +1,9 @@
 import ExerciseItem from './ExerciseItem';
 
-function ExerciseCollection({ exercise }) {
+function ExerciseCollection({ Exercises }) {
     return (
         <div className="collection-container">
-            {exercises.map((exercise, i) => <ExerciseItem exercise={exercise} 
+            {Exercises.map((exercise, i) => <ExerciseItem exercise={exercise} 
                     key={i} />)}
         </div>
 
