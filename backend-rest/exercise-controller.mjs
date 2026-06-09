@@ -20,8 +20,13 @@ app.listen(PORT, async()=>{
  * POST
  */
 app.post('/exercises', asyncHandler(async (req, res) => {
-    const exercise = await exercises.createExercise(req.body.name,req.body.reps,req.body.weight,req.body.unit,req.body.date);
-    res.status(201).json(exercise)
+    if (req.params.name !== "" && req.params.reps > 0 && weight >= 0 && unit === "kgs"||"lbs"||"miles") {
+        const exercise = await exercises.createExercise(req.body.name,req.body.reps,req.body.weight,req.body.unit,req.body.date);
+        res.status(201).json(exercise)
+    } else {
+        res.status(400).json({"Error": "Invalid request"})
+    }
+        
 }));
 
 /**
@@ -30,7 +35,7 @@ app.post('/exercises', asyncHandler(async (req, res) => {
 app.get('/exercises', asyncHandler(async(req, res) => {
     const result = await exercises.findExercises();
     res.status(200).json(result);
-});
+}));
 
 /**
  * GET the exercises corresponding to the ID provided in the URL.
