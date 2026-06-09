@@ -30,7 +30,7 @@ function ExerciseItem({ exercise }) {
             <td>{exercise.unit}</td>
             <td>{exercise.date?.split('T')[0]}</td>
             <td>
-                <a href="/" onClick={(e) => { e.preventDefault(); handleEdit(); }}>Edit</a>&nbsp;
+                <a href="/" onClick={(e) => { e.preventDefault(); navigate('/edit-exercise', { state: { exercise } }); }}>Edit</a>&nbsp;
                 <a href="/" onClick={(e) => { e.preventDefault(); handleDelete(); }}>Delete</a>
             </td>
         </tr>
