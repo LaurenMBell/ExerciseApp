@@ -25,10 +25,10 @@ app.post('/exercises', asyncHandler(async (req, res) => {
     if (!name || typeof name !== 'string' || name.trim() === '') {
         return res.status(400).json({"Error": "Invalid request"});
     }
-    if (reps === undefined || reps === null || !Number.isInteger(Number(reps)) || Number(reps) <= 0) {
+    if (!reps || Number(reps) <= 0) {
         return res.status(400).json({"Error": "Invalid request"});
     }
-    if (weight === undefined || weight === null || !Number.isInteger(Number(weight)) || Number(weight) < 0) {
+    if (!weight || Number(weight) < 0) {
         return res.status(400).json({"Error": "Invalid request"});
     }
     if (!unit || (unit !== 'kgs' && unit !== 'lbs' && unit !== 'miles')) {
@@ -75,10 +75,10 @@ app.put('/exercises/:exercise_id', asyncHandler(async(req, res) => {
     if (!name || typeof name !== 'string' || name.trim() === '') {
         return res.status(400).json({"Error": "Invalid request"});
     }
-    if (reps === undefined || reps === null || !Number.isInteger(Number(reps)) || Number(reps) <= 0) {
+    if (Number(reps) <= 0) {
         return res.status(400).json({"Error": "Invalid request"});
     }
-    if (weight === undefined || weight === null || !Number.isInteger(Number(weight)) || Number(weight) < 0) {
+    if (Number(weight) < 0) {
         return res.status(400).json({"Error": "Invalid request"});
     }
     if (!unit || (unit !== 'kgs' && unit !== 'lbs' && unit !== 'miles')) {
@@ -101,11 +101,11 @@ app.put('/exercises/:exercise_id', asyncHandler(async(req, res) => {
 }));
 
 /**
- * DELETE the exercise whose id is provided in the query parameters
+ * DELETE the exercise whose id is provided in the parameters
  */
 app.delete('/exercises/:exercise_id', asyncHandler(async(req, res) => {
     const deletedCount = await exercises.deleteById(req.params.exercise_id);
-    if (deletedCount === 1) {
+    if (deletedCount !== null) {
         res.status(204).send();
     } else {
         res.status(404).json(ERROR_NOT_FOUND);
