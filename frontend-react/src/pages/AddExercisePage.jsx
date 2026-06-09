@@ -33,7 +33,7 @@ export const AddExercisePage = () => {
                 alert('Exercise added successfully!');
                 navigate('/');
             } else {
-                alert('Failed to add exercise. Please check your input.');
+                alert('Error: bad input. Try again!');
             }
         } catch (error) {
             alert('Error adding exercise: ' + error.message);

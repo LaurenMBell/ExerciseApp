@@ -1,16 +1,18 @@
 import '../App.css';
 
 function ExerciseItem({ exercise }) {
-    //LAUREN THIS IS WHERE YOU STOPPED !!! UPDATE THE PARAMETERS TO BE FOR EXCERSIZES
     return (
-        <div className="collection-item">
-            <h3>{exercise.name}</h3>
-            <p>{exercise.reps}, {exercise.weight}, {exercise.unit}, {exercise.date}</p>
-            <p>
+        <tr>
+            <td>{exercise.name}</td>
+            <td>{exercise.reps}</td>
+            <td>{exercise.weight}</td>
+            <td>{exercise.unit}</td>
+            <td>{exercise.date}</td>
+            <td>
                 <a href="/" onClick={e => e.preventDefault()}>Edit</a>&nbsp;
-                <a href="/" onClick={e => e.preventDefault()}>Delete </a>
-            </p>
-        </div>
+                <a href="/" onClick={e => e.preventDefault()}>Delete</a>
+            </td>
+        </tr>
     );
 }
 
