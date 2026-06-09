@@ -37,7 +37,7 @@ app.get('/exercises', asyncHandler(async(req, res) => {
  * GET the exercises corresponding to the ID provided in the URL.
  */
 app.get('/exercises/:exercise_id', asyncHandler(async(req, res) => {
-    const exercise = await exercises.findExerciseById(req.params._id);
+    const exercise = await exercises.findExerciseById(req.params.exercise_id);
     if (exercise !== null) {
         res.json(exercise);
     } else {
@@ -51,9 +51,9 @@ app.get('/exercises/:exercise_id', asyncHandler(async(req, res) => {
  */
 app.put('/exercises/:exercise_id', asyncHandler(async(req, res) => {
     const numUpdated = await exercises.replaceExercise(
-                 req.body._id, req.body.name,req.body.reps,req.body.weight,req.body.unit,req.body.date)
+                 req.body.exercise_id, req.body.name,req.body.reps,req.body.weight,req.body.unit,req.body.date)
     if (numUpdated === 1) {
-        res.json({ _id: req.params._id, reps: req.body.reps, weight: req.body.weight, unit: req.body.unit, 
+        res.json({ _id: req.params.exercise_id, reps: req.body.reps, weight: req.body.weight, unit: req.body.unit, 
             date: req.body.date
          })
     } else {
@@ -65,7 +65,7 @@ app.put('/exercises/:exercise_id', asyncHandler(async(req, res) => {
  * DELETE the exercise whose id is provided in the query parameters
  */
 app.delete('/exercises/:exercise_id', asyncHandler(async(req, res) => {
-    const deletedCount = await exercises.deleteById(req.params._id);
+    const deletedCount = await exercises.deleteById(req.params.exercise_id);
     if (deletedCount === 1) {
         res.status(204).send();
     } else {

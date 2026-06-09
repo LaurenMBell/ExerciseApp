@@ -23,8 +23,7 @@ const exerciseSchema = new mongoose.Schema({
     reps: {type: Number, required: true},
     weight: {type: Number, required: true},
     unit: {type: String, required: true},
-    date: {type: Date, required: true},
-    _id: {type: Object, required: true}
+    date: {type: Date, required: true, default: Date.now},
 });
 
 const exerciseModel = mongoose.model('Exercise', exerciseSchema, 'exercises');
@@ -40,9 +39,7 @@ const exerciseModel = mongoose.model('Exercise', exerciseSchema, 'exercises');
  * @returns
  */
 async function createExercise(name, reps, weight, unit, date, _id){
-    if(name !== "" && reps >= 0 && weight >= 0 && unit === "kgs"||"lbs"||"miles"){
-        const exercise = new Exercise(name, reps, weight, unit, date, _id);
-    }
+    const exercise = new exerciseModel(name, reps, weight, unit, date, _id);
     return exercise.save();
 }
 
@@ -51,7 +48,7 @@ async function createExercise(name, reps, weight, unit, date, _id){
  * @returns 
  */
 async function findExercises() {
-    return exercises;
+    return exerciseModel.find();
 }
 
 /**
@@ -74,7 +71,7 @@ async function findExerciseById(exercise_id){
  * @returns Number of documents modified
  */
 async function replaceExercise(name, reps, weight, unit, date, _id) {
-    return exerciseModel.findByIDAndUpdate(_id,name, reps, weight, unit, date, {new : true});
+    return exerciseModel.findByIdAndUpdate(_id, {name, reps, weight, unit, date}, {new: true});
 }
 
 /**
