@@ -20,13 +20,29 @@ app.listen(PORT, async()=>{
  * POST
  */
 app.post('/exercises', asyncHandler(async (req, res) => {
-    if (req.params.name !== "" && req.params.reps > 0 && weight >= 0 && unit === "kgs"||"lbs"||"miles") {
-        const exercise = await exercises.createExercise(req.body.name,req.body.reps,req.body.weight,req.body.unit,req.body.date);
-        res.status(201).json(exercise)
-    } else {
-        res.status(400).json({"Error": "Invalid request"})
+    const { name, reps, weight, unit, date } = req.body;
+    
+    if (!name || typeof name !== 'string' || name.trim() === '') {
+        return res.status(400).json({"Error": "Invalid request"});
     }
-        
+    if (reps === undefined || reps === null || !Number.isInteger(Number(reps)) || Number(reps) <= 0) {
+        return res.status(400).json({"Error": "Invalid request"});
+    }
+    if (weight === undefined || weight === null || !Number.isInteger(Number(weight)) || Number(weight) < 0) {
+        return res.status(400).json({"Error": "Invalid request"});
+    }
+    if (!unit || (unit !== 'kgs' && unit !== 'lbs' && unit !== 'miles')) {
+        return res.status(400).json({"Error": "Invalid request"});
+    }
+    if (date) {
+        const dateObj = new Date(date);
+        if (isNaN(dateObj.getTime())) {
+            return res.status(400).json({"Error": "Invalid request"});
+        }
+    }
+    
+    const exercise = await exercises.createExercise(name, reps, weight, unit, date);
+    res.status(201).json(exercise);
 }));
 
 /**
@@ -54,12 +70,31 @@ app.get('/exercises/:exercise_id', asyncHandler(async(req, res) => {
  * its (parameters) to the values provided in the body.
  */
 app.put('/exercises/:exercise_id', asyncHandler(async(req, res) => {
+    const { name, reps, weight, unit, date } = req.body;
+    
+    if (!name || typeof name !== 'string' || name.trim() === '') {
+        return res.status(400).json({"Error": "Invalid request"});
+    }
+    if (reps === undefined || reps === null || !Number.isInteger(Number(reps)) || Number(reps) <= 0) {
+        return res.status(400).json({"Error": "Invalid request"});
+    }
+    if (weight === undefined || weight === null || !Number.isInteger(Number(weight)) || Number(weight) < 0) {
+        return res.status(400).json({"Error": "Invalid request"});
+    }
+    if (!unit || (unit !== 'kgs' && unit !== 'lbs' && unit !== 'miles')) {
+        return res.status(400).json({"Error": "Invalid request"});
+    }
+    if (date) {
+        const dateObj = new Date(date);
+        if (isNaN(dateObj.getTime())) {
+            return res.status(400).json({"Error": "Invalid request"});
+        }
+    }
+    
     const numUpdated = await exercises.replaceExercise(
-                 req.params.exercise_id, req.body.name,req.body.reps,req.body.weight,req.body.unit,req.body.date)
-    if (numUpdated === 1) {
-        res.json({ _id: req.params.exercise_id, reps: req.body.reps, weight: req.body.weight, unit: req.body.unit, 
-            date: req.body.date
-         })
+                 req.params.exercise_id, name, reps, weight, unit, date)
+    if (numUpdated !== null) {
+        res.json(numUpdated);
     } else {
         res.status(404).json(ERROR_NOT_FOUND);
     }
