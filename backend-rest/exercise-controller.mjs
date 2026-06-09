@@ -29,13 +29,7 @@ app.post('/exercises', asyncHandler(async (req, res) => {
  * GET all exercizes 
  */
 app.get('/exercises', asyncHandler(async(req, res) => {
-    const filter = {};
-    filter.name = req.query.name;
-    filter.reps = req.query.reps;
-    filter.weight = req.query.weight;
-    filter.unit = req.query.unit;
-    filter._id = req.query._id;
-    const result = await exercises.findExercise(filter);
+    const result = await exercises.findExercisebyId(req.params._id);
     res.status(200).json(result);
 }));
 
@@ -43,7 +37,7 @@ app.get('/exercises', asyncHandler(async(req, res) => {
  * GET the exercises corresponding to the ID provided in the URL.
  */
 app.get('/exercises/:exercise_id', asyncHandler(async(req, res) => {
-    const exercise = await exercisesModel.findexerciseById(req.params._id);
+    const exercise = await exercises.findExerciseById(req.params._id);
     if (exercise !== null) {
         res.json(exercise);
     } else {
@@ -56,10 +50,10 @@ app.get('/exercises/:exercise_id', asyncHandler(async(req, res) => {
  * its (parameters) to the values provided in the body.
  */
 app.put('/exercises/:exercise_id', asyncHandler(async(req, res) => {
-    const numUpdated = await exercisesModel.replaceExercise(
-                req.body.name,req.body.reps,req.body.weight,req.body.unit,req.body.date, req.body._id)
+    const numUpdated = await exercises.replaceExercise(
+                 req.body._id, req.body.name,req.body.reps,req.body.weight,req.body.unit,req.body.date)
     if (numUpdated === 1) {
-        res.json({ _id: req.params.exercise_id, reps: req.body.reps, weight: req.body.weight, unit: req.body.unit, 
+        res.json({ _id: req.params._id, reps: req.body.reps, weight: req.body.weight, unit: req.body.unit, 
             date: req.body.date
          })
     } else {
@@ -71,7 +65,7 @@ app.put('/exercises/:exercise_id', asyncHandler(async(req, res) => {
  * DELETE the exercise whose id is provided in the query parameters
  */
 app.delete('/exercises/:exercise_id', asyncHandler(async(req, res) => {
-    const deletedCount = await exercisesModel.deleteById(req.params._id);
+    const deletedCount = await exercises.deleteById(req.params._id);
     if (deletedCount === 1) {
         res.status(204).send();
     } else {
