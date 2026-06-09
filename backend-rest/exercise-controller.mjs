@@ -20,18 +20,17 @@ app.listen(PORT, async()=>{
  * POST
  */
 app.post('/exercises', asyncHandler(async (req, res) => {
-    const { name, reps, weight, unit, date, _id } = req.body;
-    const exercise = await exercises.createExercise(req.body.name,req.body.reps,req.body.weight,req.body.unit,req.body.date, req.body._id);
-        res.status(201).json(exercise)
+    const exercise = await exercises.createExercise(req.body.name,req.body.reps,req.body.weight,req.body.unit,req.body.date);
+    res.status(201).json(exercise)
 }));
 
 /**
  * GET all exercizes 
  */
 app.get('/exercises', asyncHandler(async(req, res) => {
-    const result = await exercises.findExercisebyId(req.params._id);
+    const result = await exercises.findExercises();
     res.status(200).json(result);
-}));
+});
 
 /**
  * GET the exercises corresponding to the ID provided in the URL.
@@ -51,7 +50,7 @@ app.get('/exercises/:exercise_id', asyncHandler(async(req, res) => {
  */
 app.put('/exercises/:exercise_id', asyncHandler(async(req, res) => {
     const numUpdated = await exercises.replaceExercise(
-                 req.body.exercise_id, req.body.name,req.body.reps,req.body.weight,req.body.unit,req.body.date)
+                 req.params.exercise_id, req.body.name,req.body.reps,req.body.weight,req.body.unit,req.body.date)
     if (numUpdated === 1) {
         res.json({ _id: req.params.exercise_id, reps: req.body.reps, weight: req.body.weight, unit: req.body.unit, 
             date: req.body.date

@@ -1,5 +1,4 @@
 'use strict'
-import exercises from './exercises.mjs';
 import mongoose from 'mongoose';
 import 'dotenv/config';
 
@@ -38,8 +37,8 @@ const exerciseModel = mongoose.model('Exercise', exerciseSchema, 'exercises');
  * @param {Object} _id
  * @returns
  */
-async function createExercise(name, reps, weight, unit, date, _id){
-    const exercise = new exerciseModel(name, reps, weight, unit, date, _id);
+async function createExercise(name, reps, weight, unit, date){
+    const exercise = new exerciseModel({name, reps, weight, unit, date});
     return exercise.save();
 }
 
@@ -62,15 +61,15 @@ async function findExerciseById(exercise_id){
 
 /**
  * Replace the properties of the exercise with the id value provided
+ * @param {Object} _id
  * @param {string} name
  * @param {Number} reps
  * @param {Number} weight
  * @param {String} unit
  * @param {Date} date
- * @param {Object} _id
- * @returns Number of documents modified
+ * @returns Document after update
  */
-async function replaceExercise(name, reps, weight, unit, date, _id) {
+async function replaceExercise(_id, name, reps, weight, unit, date) {
     return exerciseModel.findByIdAndUpdate(_id, {name, reps, weight, unit, date}, {new: true});
 }
 
