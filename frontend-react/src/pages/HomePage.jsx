@@ -19,7 +19,7 @@ function HomePage() {
 
     return (
         <>
-            <h2>List of Exercises</h2>
+            <h2>Exercises</h2>
             <ExerciseCollection Exercises={Exercises}></ExerciseCollection>
         </>
     );
