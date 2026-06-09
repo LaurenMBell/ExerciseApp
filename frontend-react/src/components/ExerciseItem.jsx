@@ -1,6 +1,27 @@
 import '../App.css';
+import { useNavigate } from 'react-router-dom';
 
 function ExerciseItem({ exercise }) {
+    const navigate = useNavigate();
+
+    const handleDelete = async () => {
+        try {
+            const response = await fetch(`/exercises/${exercise._id}`, {
+                method: 'DELETE'
+            });
+
+            if (response.status === 204) {
+                alert('Deleted!');
+                navigate('/');
+            } else {
+                alert('Could not delete :(');
+            }
+        } catch (error) {
+            alert('Error deleting exercise.');
+            console.error('Error:', error);
+        }
+    };
+
     return (
         <tr>
             <td>{exercise.name}</td>
@@ -9,8 +30,8 @@ function ExerciseItem({ exercise }) {
             <td>{exercise.unit}</td>
             <td>{exercise.date?.split('T')[0]}</td>
             <td>
-                <a href="/" onClick={e => e.preventDefault()}>Edit</a>&nbsp;
-                <a href="/" onClick={e => e.preventDefault()}>Delete</a>
+                <a href="/" onClick={(e) => { e.preventDefault(); handleEdit(); }}>Edit</a>&nbsp;
+                <a href="/" onClick={(e) => { e.preventDefault(); handleDelete(); }}>Delete</a>
             </td>
         </tr>
     );
