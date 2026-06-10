@@ -39,6 +39,7 @@ export const AddExercisePage = () => {
         } catch (error) {
             alert('Error adding exercise: ' + error.message);
             console.error('Error:', error);
+            navigate('/');
         }
     };
 

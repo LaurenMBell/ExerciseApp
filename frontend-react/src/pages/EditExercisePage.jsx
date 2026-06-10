@@ -67,6 +67,7 @@ export const EditExercisePage = () => {
         } catch (error) {
             alert('Error updating exercise: ' + error.message);
             console.error('Error:', error);
+            navigate('/');
         }
     };
 
