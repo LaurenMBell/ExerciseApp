@@ -17,10 +17,14 @@ function HomePage() {
         fetchExercises();
     }, []);
 
+    const removeExercise = (_id) => {
+        setExercises(Exercises.filter(exercise => exercise._id !== _id));
+    };
+
     return (
         <>
             <h2>Exercises</h2>
-            <ExerciseCollection Exercises={Exercises}></ExerciseCollection>
+            <ExerciseCollection Exercises={Exercises} onDelete={removeExercise}></ExerciseCollection>
         </>
     );
 }

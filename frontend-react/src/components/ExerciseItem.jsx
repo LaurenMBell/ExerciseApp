@@ -2,7 +2,7 @@ import '../App.css';
 import { useNavigate } from 'react-router-dom';
 import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 
-function ExerciseItem({ exercise }) {
+function ExerciseItem({ exercise, onDelete }) {
     const navigate = useNavigate();
 
     const handleDelete = async () => {
@@ -13,7 +13,7 @@ function ExerciseItem({ exercise }) {
 
             if (response.status === 204) {
                 alert('Deleted!');
-                navigate('/');
+                onDelete(exercise._id);
             } else {
                 alert('Could not delete :(');
             }

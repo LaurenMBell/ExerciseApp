@@ -1,6 +1,6 @@
 import ExerciseItem from './ExerciseItem';
 
-function ExerciseCollection({ Exercises }) {
+function ExerciseCollection({ Exercises, onDelete }) {
     return (
         <table className="exercises-table">
             <thead>
@@ -15,7 +15,7 @@ function ExerciseCollection({ Exercises }) {
             </thead>
             <tbody>
                 {Exercises.map((exercise, i) => <ExerciseItem exercise={exercise} 
-                        key={i} />)}
+                        key={exercise._id || i} onDelete={onDelete} />)}
             </tbody>
         </table>
     );
