@@ -52,11 +52,11 @@ async function findExercises() {
 
 /**
  * Retrieve exercises based on the ID
- * @param {Object} exercise_id
+ * @param {Object} _id
  * @returns 
  */
-async function findExerciseById(exercise_id){
-    return exerciseModel.findById(exercise_id);
+async function findExerciseById(_id){
+    return exerciseModel.findById(_id);
 }
 
 /**
