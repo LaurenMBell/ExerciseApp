@@ -25,10 +25,10 @@ app.post('/exercises', asyncHandler(async (req, res) => {
     if (!name || typeof name !== 'string' || name.trim() === '') {
         return res.status(400).json({"Error": "Invalid request"});
     }
-    if (!reps || Number(reps) <= 0) {
+    if (!reps || Number(reps) < 0) {
         return res.status(400).json({"Error": "Invalid request"});
     }
-    if (!weight || Number(weight) < 0) {
+    if (!weight || Number(weight) <= 0) {
         return res.status(400).json({"Error": "Invalid request"});
     }
     if (!unit || (unit !== 'kgs' && unit !== 'lbs' && unit !== 'miles')) {
@@ -70,15 +70,13 @@ app.get('/exercises/:_id', asyncHandler(async(req, res) => {
  * its (parameters) to the values provided in the body.
  */
 app.put('/exercises/:_id', asyncHandler(async(req, res) => {
-    const { name, reps, weight, unit, date } = req.body;
-    
     if (!name || typeof name !== 'string' || name.trim() === '') {
         return res.status(400).json({"Error": "Invalid request"});
     }
-    if (Number(reps) <= 0) {
+    if (!reps || Number(reps) < 0) {
         return res.status(400).json({"Error": "Invalid request"});
     }
-    if (Number(weight) < 0) {
+    if (!weight || Number(weight) <= 0) {
         return res.status(400).json({"Error": "Invalid request"});
     }
     if (!unit || (unit !== 'kgs' && unit !== 'lbs' && unit !== 'miles')) {
@@ -91,10 +89,12 @@ app.put('/exercises/:_id', asyncHandler(async(req, res) => {
         }
     }
     
+    const { name, reps, weight, unit, date } = req.body;
+
     const numUpdated = await exercises.replaceExercise(
                  req.params.exercise_id, name, reps, weight, unit, date)
     if (numUpdated !== null) {
-        res.json(numUpdated);
+        res.json(numUpdated).status(200);
     } else {
         res.status(404).json(ERROR_NOT_FOUND);
     }
