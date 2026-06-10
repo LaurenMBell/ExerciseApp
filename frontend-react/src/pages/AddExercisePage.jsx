@@ -45,7 +45,7 @@ export const AddExercisePage = () => {
         <div>
             <h1>Add Exercise</h1>
             <form onSubmit={addExercise}>
-                <div>
+                <p>
                     <label htmlFor="name">Name:</label>
                     <input
                         id="name"
@@ -53,8 +53,8 @@ export const AddExercisePage = () => {
                         placeholder="Enter exercise name"
                         value={name}
                         onChange={e => setName(e.target.value)} />
-                </div>
-                <div>
+                </p>
+                <p>
                     <label htmlFor="reps">Reps:</label>
                     <input
                         id="reps"
@@ -62,8 +62,8 @@ export const AddExercisePage = () => {
                         placeholder="Enter reps"
                         value={reps}
                         onChange={e => setReps(e.target.value)} />
-                </div>
-                <div>
+                </p>
+                <p>
                     <label htmlFor="weight">Weight:</label>
                     <input
                         id="weight"
@@ -71,8 +71,8 @@ export const AddExercisePage = () => {
                         placeholder="Enter weight"
                         value={weight}
                         onChange={e => setWeight(e.target.value)} />
-                </div>
-                <div>
+                </p>
+                <p>
                     <label htmlFor="unit">Unit:</label>
                     <select
                         id="unit"
@@ -82,15 +82,15 @@ export const AddExercisePage = () => {
                         <option value="lbs">lbs</option>
                         <option value="miles">miles</option>
                     </select>
-                </div>
-                <div>
+                </p>
+                <p>
                     <label htmlFor="date">Date:</label>
                     <input
                         id="date"
                         type="date"
                         value={date}
                         onChange={e => setDate(e.target.value)} />
-                </div>
+                </p>
                 <button type="submit">Add Exercise</button>
             </form>
         </div>
