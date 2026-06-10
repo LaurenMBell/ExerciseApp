@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import * as exercises from './exercise-model.mjs';
+import * as exercises from './exercise-models.mjs';
 import express from 'express';
 import asyncHandler from 'express-async-handler';
 
