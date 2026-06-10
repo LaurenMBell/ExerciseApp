@@ -1,5 +1,6 @@
 import '../App.css';
 import { useNavigate } from 'react-router-dom';
+import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 
 function ExerciseItem({ exercise }) {
     const navigate = useNavigate();
@@ -30,8 +31,22 @@ function ExerciseItem({ exercise }) {
             <td>{exercise.unit}</td>
             <td>{exercise.date?.split('T')[0]}</td>
             <td>
-                <a href="/" onClick={(e) => { e.preventDefault(); navigate('/edit-exercise', { state: { exercise } }); }}>Edit</a>&nbsp;
-                <a href="/" onClick={(e) => { e.preventDefault(); handleDelete(); }}>Delete</a>
+                <button
+                    type="button"
+                    aria-label={`Edit ${exercise.name}`}
+                    title="Edit"
+                    onClick={() => navigate('/edit-exercise', { state: { exercise } })}
+                >
+                    <FaEdit />
+                </button>
+                <button
+                    type="button"
+                    aria-label={`Delete ${exercise.name}`}
+                    title="Delete"
+                    onClick={handleDelete}
+                >
+                    <FaTrashAlt />
+                </button>
             </td>
         </tr>
     );
