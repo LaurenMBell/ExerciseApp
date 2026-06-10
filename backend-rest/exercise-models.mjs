@@ -12,7 +12,7 @@ async function connect() {
         console.log("Successfully connected to MongoDB using Mongoose!");
     } catch (err) {
         console.log(err);
-        throw Error('Couldnt connect to MongoDB ${err.message}')
+        throw Error(`Couldnt connect to MongoDB`)
     }
 }
 
