@@ -34,6 +34,7 @@ export const AddExercisePage = () => {
                 navigate('/');
             } else {
                 alert('Error: bad input. Try again!');
+                navigate('/');
             }
         } catch (error) {
             alert('Error adding exercise: ' + error.message);

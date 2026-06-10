@@ -25,7 +25,6 @@ export const EditExercisePage = () => {
     const editExercise = async (e) => {
         e.preventDefault();
 
-        // Frontend validation
         if (!name || !reps || weight === '' || !unit) {
             alert('Please fill in all required fields (name, reps, weight, unit).');
             return;
@@ -62,7 +61,8 @@ export const EditExercisePage = () => {
                 alert('Exercise updated successfully!');
                 navigate('/');
             } else {
-                alert('Error: bad input. Try again!');
+                alert('Error: bad input.');
+                navigate('/');
             }
         } catch (error) {
             alert('Error updating exercise: ' + error.message);
